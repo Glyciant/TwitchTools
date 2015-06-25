@@ -1,0 +1,52 @@
+@echo off
+:Menu
+cls
+title Twitch API Access
+color 0D
+echo Welcome to Twitch API Access! Please enter the channel you wish to view API for.
+echo Warning: When using TMI, make sure to enter this as lowercase.
+echo.
+set /p Channel=Option: 
+cls
+:MenuType
+echo Please enter the type of %Channel%'s API you wish to view.
+echo.
+echo 1. Kraken
+echo 2. Old API
+echo 3. TMI
+echo 0. Re-Enter Channel
+echo.
+set /p MenuOption=Option: 
+if %MenuOption% == 1 goto Kraken
+if %MenuOption% == 2 goto OldAPI
+if %MenuOption% == 3 goto TMI
+if %MenuOption% == 0 goto Menu
+goto MenuType
+:Kraken
+cls
+echo What type of Kraken API do you wish to view for %Channel%?
+echo.
+echo 1. Channel
+echo 2. User
+echo 3. Stream
+echo.
+set /p Type=Option: 
+if %Type% == 1 set Option=channels
+if %Type% == 2 set Option=users
+if %Type% == 3 set Option=streams
+start https://api.twitch.tv/kraken/%Option%/%Channel%
+goto Menu
+:TMI
+start http://tmi.twitch.tv/group/user/%Channel%/chatters
+goto Menu
+:OldAPI
+cls
+echo What type of Old API do you wish to view for %Channel%?
+echo.
+echo 1. Channel
+echo 2. Chat Properties
+echo.
+set /p Type=Option: 
+if %Option% == 1 start https://api.twitch.tv/api/channels/%Channel%/
+if %Option% == 2 start https://api.twitch.tv/api/channels/%Channel%/chat_properties
+goto Menu
